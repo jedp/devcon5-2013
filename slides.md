@@ -30,9 +30,10 @@ into their websites.
 
 Some examples:
 
+- bornthiswayfoundation.org
+- sloblog.io
 - crossword.thetimes.co.uk
 - voo.st
-- sloblog.io
 - mineshafter.info
 - reasonwell.com
 
@@ -97,8 +98,6 @@ Done in two clicks.  No passwords.  No kittens were harmed.
 - Conversion rate
 - No lock-in; Email addresses are universal
 
-## Identity Assertions
-
 ## In your Website
 
     <script src="https://login.persona.org/include.js"></script>
@@ -121,7 +120,7 @@ Done in two clicks.  No passwords.  No kittens were harmed.
 
     });
 
-## 2
+## Maybe provide the logged-in user
 
     navigator.id.watch({
       loggedInUser: #{ whoYouThinkIsLoggedIn },
@@ -139,7 +138,7 @@ Done in two clicks.  No passwords.  No kittens were harmed.
 
     });
 
-## 3
+## Provide an onlogin callback
 
     navigator.id.watch({
       loggedInUser: #{ whoYouThinkIsLoggedIn },
@@ -157,7 +156,7 @@ Done in two clicks.  No passwords.  No kittens were harmed.
 
     });
 
-## 4
+## Provide an onlogout callback
 
     navigator.id.watch({
       loggedInUser: #{ whoYouThinkIsLoggedIn },
@@ -175,11 +174,8 @@ Done in two clicks.  No passwords.  No kittens were harmed.
       }
     });
 
-## Now what
 
-show where we click
-
-## request
+## Request an identity
 
     navigator.id.request();
 
@@ -190,7 +186,7 @@ For example:
     });
 
 
-## 4
+## Handling a login
 
     navigator.id.watch({
       loggedInUser: #{ whoYouThinkIsLoggedIn },
@@ -208,7 +204,7 @@ For example:
       }
     });
 
-## 5: Verify assertions
+## Verifying identity ownership
 
 On your server:
 
@@ -280,10 +276,6 @@ Websites just do this:
 
 Note: https required for site logo, though we are investigating data urls.
 
-## integrating with LDAP
-
-vinz-clortho
-
 ## What's really happening here?
 
 Let's nerd out for a moment.
@@ -301,11 +293,11 @@ Dramatis Personae:
 Wherein Shakti proves her identity
 
 1. Shakti wants to login to `hereswaldo.com` as `shakti@idomene.us`
-2. Shakti must prove she is actually `shakti@idomene.us`
-3. Shakti is directed to Idomeneus
-4. Idomeneus asks Shakti to authenticate
-5. She does, so Idomeneus asks Shakti to generate a public and private key
-6. Shakti sends her public key to Idomeneus
+2. Shakti generates a public and private keypair
+3. Shakti must prove she is actually `shakti@idomene.us`
+4. Shakti is directed to Idomeneus
+5. Idomeneus asks Shakti to authenticate
+6. She does, so Idomeneus asks Shakti for her public key
 7. Idomeneus constructs a JWT with email address, public key, and expiry date
 8. Idomeneus signs the JWT with his own private key
 9. Idomeneus returns this **signed certificate** to Shakti
@@ -359,6 +351,10 @@ Wherein Waldo confirms Shakti's ownership of the identity
     });
 
 
+## integrating with LDAP
+
+- Mozilla IDP: `https://github.com/mozilla/vinz-clortho/`
+
 ## idp API
 
 Anybody can be an identity provider.  You can be your own IdP!
@@ -388,23 +384,39 @@ This way the system is fully federated from the get-go, but still falls
 back to `persona.org` if necessary in order to bootstrap the web to 
 Persona.
 
-## writing an identity provider
 
-provision - you do nothing
-auth - you auth
-cert_key - you certify the auth'd user's public key
+## Some IdP Examples
 
-we have libs for this!
+- Mozilla IdP (vinz-clortho)
+- sendmypin.org
+- gno.mn
+- eyedee.me
 
-## embedding
+See `https://developer.mozilla.org/en-US/docs/Mozilla/Persona`
 
-internal_api
+## Embedding
+
+All you need is a sandboxed iframe
 
 - make a sandboxed iframe
-- source the persona js
-    either sign_in (visible UI for signing in)
-    or communication_iframe (for invisible logic; try to auto-login)
-- inject framescript to communicate between chrome and content
-- voila
+- source visible UI or inivisible js scripts:
+    - https://login.persona.org/sign_in#NATIVE
+    - https://login.persona.org/communication_iframe
+- probably inject framescript to communicate between chrome and content
 
+See the `internal_api` docs at `https://github.com/mozilla/browserid`
+
+## Thanks
+
+- `https://github.com/mozilla/browserid`
+
+----------------------------------------
+
+**Jed Parsons**, Engineer, Mozilla
+
+- `jparsons@mozilla.com`
+- `https://github.com/jedp`
+- `@drainmice`
+
+**DevCon5**, New York, 2013
 
