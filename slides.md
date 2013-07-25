@@ -276,13 +276,19 @@ Websites just do this:
 
 Note: https required for site logo, though we are investigating data urls.
 
+## Let's Personify an App
+
+How hard can it be?
+
+Let's use: https://devconfab.personatest.org/
+
 ## What's really happening here?
 
 Let's nerd out for a moment.
 
 How does the protocol work?
 
-Dramatis Personae:
+Dramatis Personae [heh]:
 
 - Shakti the Shopper
 - Waldo the Website, merchant of striped clothing
@@ -351,9 +357,15 @@ Wherein Waldo confirms Shakti's ownership of the identity
     });
 
 
-## integrating with LDAP
+## Some IdP Examples
 
-- Mozilla IDP: `https://github.com/mozilla/vinz-clortho/`
+- Mozilla IdP (vinz-clortho)
+- sendmypin.org
+- gno.mn
+- eyedee.me
+
+See `https://developer.mozilla.org/en-US/docs/Mozilla/Persona`
+
 
 ## idp API
 
@@ -384,15 +396,9 @@ This way the system is fully federated from the get-go, but still falls
 back to `persona.org` if necessary in order to bootstrap the web to 
 Persona.
 
+## integrating with LDAP
 
-## Some IdP Examples
-
-- Mozilla IdP (vinz-clortho)
-- sendmypin.org
-- gno.mn
-- eyedee.me
-
-See `https://developer.mozilla.org/en-US/docs/Mozilla/Persona`
+- Mozilla IDP: `https://github.com/mozilla/vinz-clortho/`
 
 ## Embedding
 
